@@ -2,12 +2,12 @@ name: main
 
 on:
   push:
-    branches: [main, test-me-*]
+    branches: [main, test-me*]
     tags:
   pull_request:
 
 jobs:
   main:
-    uses: ./.github/workflows/tox.yml
+    uses: HeySlava/workflows/.github/workflows/tox.yml@f83c7f30d51fec89fda1b4c78790739ab26c4abd
     with:
       env: '["py37", "py38", "py39", "py310", "py311"]'
