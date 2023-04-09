@@ -1,0 +1,45 @@
+on:
+  workflow_call:
+    inputs:
+      os:
+        required: false
+        type: string
+        default: ubuntu-latest
+      env:
+        required: true
+        type: string
+      arch:
+        required: false
+        type: string
+        default: '["x64"]'
+      submodules:
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  tox:
+    name: ${{ inputs.os }} / ${{ matrix.env }}${{ inputs.arch != '["x64"]' && format(' /  {0}', matrix.arch) || '' }}
+    runs-on: ${{ inputs.os }}
+    strategy:
+      matrix:
+        env: ${{ fromJSON(inputs.env) }}
+        arch: ${{ fromJSON(inputs.arch) }}
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: ${{ inputs.submodules }}
+    - uses: actions/setup-python@v4
+      with:
+        python-version: |
+          ${{
+            (matrix.env == 'pypy3' || startsWith(matrix.env, 'pypy3-')) && 'pypy3.9' ||
+            (matrix.env == 'py37' || startsWith(matrix.env, 'py37-')) && '3.7' ||
+            (matrix.env == 'py38' || startsWith(matrix.env, 'py38-')) && '3.8' ||
+            (matrix.env == 'py39' || startsWith(matrix.env, 'py39-')) && '3.9' ||
+            (matrix.env == 'py310' || startsWith(matrix.env, 'py310-')) && '3.10' ||
+            '3.11'
+          }}
+        architecture: ${{ matrix.arch }}
+    - run: python -mpip install --upgrade setuptools tox virtualenv
+    - run: tox -e ${{ matrix.env }}
