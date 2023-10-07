@@ -42,5 +42,7 @@ jobs:
             '3.12'
           }}
         architecture: ${{ matrix.arch }}
+    - uses: ./.github/actions/pre-test
+      if: ${{ hashFiles('.github/actions/pre-test/action.yml') != '' }}
     - run: python -mpip install --upgrade setuptools tox virtualenv
     - run: tox -e ${{ matrix.env }}
