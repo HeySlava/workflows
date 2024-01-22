@@ -38,8 +38,11 @@ jobs:
             (matrix.env == 'py38' || startsWith(matrix.env, 'py38-')) && '3.8' ||
             (matrix.env == 'py39' || startsWith(matrix.env, 'py39-')) && '3.9' ||
             (matrix.env == 'py310' || startsWith(matrix.env, 'py310-')) && '3.10' ||
-            '3.11'
+            (matrix.env == 'py311' || startsWith(matrix.env, 'py311-')) && '3.11' ||
+            '3.12'
           }}
         architecture: ${{ matrix.arch }}
+    - uses: ./.github/actions/pre-test
+      if: ${{ hashFiles('.github/actions/pre-test/action.yml') != '' }}
     - run: python -mpip install --upgrade setuptools tox virtualenv
     - run: tox -e ${{ matrix.env }}
