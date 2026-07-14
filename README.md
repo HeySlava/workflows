@@ -22,6 +22,10 @@ this job template will install python and invoke tox
 this action auto-detects python versions via the env name.  here are some
 examples:
 
+- `py315`: will run using python 3.15-dev (deadsnakes)
+- `py315-wat`: will also run using python 3.15-dev
+- `py314`: will run with python 3.14
+- `py314-wat`: will also run with python 3.14
 - `py313`: will run with python 3.13
 - `py313-wat`: will also run with python 3.13
 - `py310`: will run with python 3.10
@@ -36,9 +40,9 @@ examples:
 ```yaml
 jobs:
   main:
-    uses: heyslava/workflows/.github/workflows/tox.yml@v1.0.0
+    uses: heyslava/workflows/.github/workflows/tox.yml@v1.2.0
     with:
-      env: '["py37", "py38", "pypy3"]'
+      env: '["py38", "py39", "py310", "py311", "py312", "py313", "py314", "py315"]'
 ```
 
 
