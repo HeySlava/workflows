@@ -40,6 +40,7 @@ jobs:
             (matrix.env == 'py310' || startsWith(matrix.env, 'py310-')) && '3.10' ||
             (matrix.env == 'py311' || startsWith(matrix.env, 'py311-')) && '3.11' ||
             (matrix.env == 'py312' || startsWith(matrix.env, 'py312-')) && '3.12' ||
+            (matrix.env == 'py313' || startsWith(matrix.env, 'py313-')) && '3.13' ||
             '3.13'
           }}
         architecture: ${{ matrix.arch }}

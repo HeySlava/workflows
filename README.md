@@ -22,10 +22,11 @@ this job template will install python and invoke tox
 this action auto-detects python versions via the env name.  here are some
 examples:
 
+- `py313`: will run with python 3.13
+- `py313-wat`: will also run with python 3.13
 - `py310`: will run with python 3.10
 - `py310-wat`: will also run with python 3.10
 - `pypy3`: will run using pypy 3.9
-- `wat`: will run with python 3.11
 
 [`runs-on`]: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idruns-on
 [`actions/checkout`]: https://github.com/actions/checkout
